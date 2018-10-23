@@ -1,3 +1,5 @@
+import org.json.JSONException;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -12,6 +14,7 @@ public class connectionClass {
       connectionClass connection = new connectionClass("104.248.47.74", 80);
       String path = "dkrest/test/get2";
       connection.sendGetCommand(path);
+      JSONParseClass jsonClass = new JSONParseClass(jasonResponse);
     }
 
     private String BASE_URL;
@@ -19,6 +22,7 @@ public class connectionClass {
     public connectionClass(String host, int port)
     {
        BASE_URL = "http://" + host + ":" + port + "/";
+
     }
 
     public void sendGetCommand(String path)
@@ -26,7 +30,7 @@ public class connectionClass {
 
         sendGet(path);
     }
-
+    public static String jasonResponse = "";
     private void sendGet(String path)
     {
         try {
@@ -46,6 +50,8 @@ public class connectionClass {
                 stream.close();
                 System.out.println("Response from the server");
                 System.out.println(responseBody);
+                jasonResponse = responseBody;
+
             } else {
                 String responseDescription = connection.getResponseMessage();
                 System.out.println("Request failed, response code: " + responseCode + " (" + responseDescription + ")");
