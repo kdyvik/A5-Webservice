@@ -14,8 +14,8 @@ public class connectionClass {
       connectionClass connection = new connectionClass("104.248.47.74", 80);
       String path = "dkrest/test/get2";
       connection.sendGetCommand(path);
-
-
+      postClass pc = new postClass("104.248.47.74", 80);
+      pc.postRandomNumbers();
     }
 
     private String BASE_URL;
@@ -31,6 +31,7 @@ public class connectionClass {
 
         sendGet(path);
     }
+
     public static String jasonResponse = "";
     private void sendGet(String path)
     {
