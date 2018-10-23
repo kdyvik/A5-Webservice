@@ -14,15 +14,16 @@ public class connectionClass {
       connectionClass connection = new connectionClass("104.248.47.74", 80);
       String path = "dkrest/test/get2";
       connection.sendGetCommand(path);
-      JSONParseClass jsonClass = new JSONParseClass(jasonResponse);
+
+
     }
 
     private String BASE_URL;
 
+
     public connectionClass(String host, int port)
     {
        BASE_URL = "http://" + host + ":" + port + "/";
-
     }
 
     public void sendGetCommand(String path)
@@ -51,6 +52,8 @@ public class connectionClass {
                 System.out.println("Response from the server");
                 System.out.println(responseBody);
                 jasonResponse = responseBody;
+                JSONParseClass jsonClass = new JSONParseClass();
+                jsonClass.objectIncoming(jasonResponse);
 
             } else {
                 String responseDescription = connection.getResponseMessage();
