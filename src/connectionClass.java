@@ -1,4 +1,5 @@
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -8,32 +9,29 @@ import java.net.URL;
 
 public class connectionClass {
 
-
-    public static void main(String [] args)
-    {
-      connectionClass connection = new connectionClass("104.248.47.74", 80);
-      String path = "dkrest/test/get2";
-      connection.sendGetCommand(path);
-      postClass pc = new postClass("104.248.47.74", 80);
-      pc.postRandomNumbers();
-    }
-
     private String BASE_URL;
 
 
     public connectionClass(String host, int port)
     {
        BASE_URL = "http://" + host + ":" + port + "/";
+
     }
 
     public void sendGetCommand(String path)
     {
+        System.out.println(sendGet(path));
+    }
 
-        sendGet(path);
+    public void getTask1()
+    {
+
+        String path = "http://104.248.47.74/dkrest/gettask/" +  "1" + "?sessionId="  ;
     }
 
     public static String jasonResponse = "";
-    private void sendGet(String path)
+
+    private JSONObject sendGet(String path)
     {
         try {
             String url = BASE_URL + path;
@@ -54,22 +52,26 @@ public class connectionClass {
                 System.out.println(responseBody);
                 jasonResponse = responseBody;
                 JSONParseClass jsonClass = new JSONParseClass();
-                jsonClass.objectIncoming(jasonResponse);
+                JSONObject jsonObject = jsonClass.objectIncoming(responseBody);
+                return jsonObject;
 
             } else {
                 String responseDescription = connection.getResponseMessage();
                 System.out.println("Request failed, response code: " + responseCode + " (" + responseDescription + ")");
+                return null;
             }
         }
 
         catch(ProtocolException e)
         {
             System.out.println("Protocol not supported by the server");
+            return null;
         }
         catch (IOException e)
         {
             System.out.println("Something went wrong: " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
     }
 
