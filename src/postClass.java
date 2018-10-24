@@ -8,6 +8,7 @@ import java.net.URL;
 public class postClass {
 
     private String BASE_URL;
+    private int sessionID;
 
     public postClass(String host, int port)
     {
@@ -30,7 +31,7 @@ public class postClass {
 
     }
 
-    private int sessionID;
+
     public int getSessionID()
     {
         return this.sessionID;

@@ -23,10 +23,12 @@ public class connectionClass {
         System.out.println(sendGet(path));
     }
 
-    public void getTask1()
+    public void getTask1(int currentID)
     {
 
-        String path = "http://104.248.47.74/dkrest/gettask/" +  "1" + "?sessionId="  ;
+        String path = "dkrest/gettask/" +  "1" + "?sessionId=" + currentID;
+        System.out.println(sendGet(path));
+        //sendGet(path);
     }
 
     public static String jasonResponse = "";
